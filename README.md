@@ -25,10 +25,10 @@ pip install -r requirements.txt
 
 ## Ejecución
 
-Para ejecutar la aplicación, simplemente ejecuta el archivo `run.py` desde la línea de comandos:
+Para ejecutar la aplicación, simplemente ejecuta el archivo `app.py` desde la línea de comandos:
 
 ```
-python run.py
+python src/app.py
 ```
 
 
