@@ -2,7 +2,7 @@
     {% if current_user.is_authenticated and current_user.rol == 'comprador' %}
     <!-- Mostrar estas opciones solo si el usuario está autenticado como comprador -->
     <li class="nav-item">
-        <a class="nav-link" href="/catalogo"><i class="fas fa-list"></i> Catálogo</a>
+        <a class="nav-link" href="{{ url_for('productoRoute.getAll') }}"><i class="fas fa-list"></i> Catálogo</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="/pedido"><i class="fas fa-shopping-cart"></i> Pedido</a>
@@ -11,7 +11,7 @@
         <a class="nav-link" href="/factura"><i class="fas fa-file-invoice"></i> Factura</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/perfil"><i class="fas fa-user"></i> Datos personales</a>
+        <a class="nav-link" href="{{ url_for('loginRoute.updateUser') }}"><i class="fas fa-user"></i> Datos personales</a>
     </li>
     {% endif %}
     {% if current_user.is_authenticated and current_user.rol == 'admin' %}
@@ -29,7 +29,7 @@
         <a class="nav-link" href="/facturas"><i class="fas fa-file-invoice"></i> Facturas</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/perfil"><i class="fas fa-user"></i> Datos personales</a>
+        <a class="nav-link" href="{{ url_for('loginRoute.updateUser') }}"><i class="fas fa-user"></i> Datos personales</a>
     </li>
     {% endif %}
     {% if not current_user.is_authenticated %}

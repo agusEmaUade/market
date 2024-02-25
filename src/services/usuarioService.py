@@ -11,14 +11,14 @@ def create(username, password, email, rol='comprador'):
     usuario._id = result.inserted_id
     return usuario
 
-def update(user_id, new_password=None, new_email=None, new_rol=None):
+def update(user_id, new_password=None, new_email=None, new_name=None):
     update_data = {}
     if new_password:
         update_data['password_hash'] = generate_password_hash(new_password)
     if new_email:
         update_data['email'] = new_email
-    if new_rol:
-        update_data['rol'] = new_rol
+    if new_name:
+        update_data['username'] = new_name
     
     mongo.db.usuario.update_one({'_id': user_id}, {'$set': update_data})
 
