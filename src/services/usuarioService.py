@@ -42,5 +42,9 @@ def authenticate(username, password):
     else:
         return None
     
-def get_id(self):
-    return str(self._id)
+def getById(user_id):
+    usuario_doc = mongo.db.usuario.find_one({'_id': ObjectId(user_id)})
+    if usuario_doc:
+        return Usuario.from_mongo(usuario_doc)
+    else:
+        return None

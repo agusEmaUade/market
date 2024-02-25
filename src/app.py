@@ -5,7 +5,7 @@ from flask_login import LoginManager, login_required, logout_user, current_user
 
 from repositories.mongo import mongo
 from routes import loginRoute, productoRoute
-from models.usuario import Usuario
+from services.usuarioService import getById
 
 config = load_dotenv()
 
@@ -24,7 +24,7 @@ mongo.init_app(app)
 #route generales
 @login_manager.user_loader
 def load_user(user_id):
-    return Usuario.get_by_id(mongo, user_id)
+    return getById(user_id)
 
 
 @app.route('/')

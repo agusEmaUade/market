@@ -1,10 +1,12 @@
 from flask import Blueprint, render_template, request, redirect, url_for
+from flask_login import LoginManager, login_required, logout_user, current_user
 from services.productoService import getAllActive
 
 
-main = Blueprint('producto', __name__)
+main = Blueprint('productoRoute', __name__)
 
 @main.route('/', methods=['GET'])
+@login_required
 def getAll():
   # Mock de lista de productos (puedes reemplazar esto con tus datos reales)
     productos = [
