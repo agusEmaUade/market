@@ -16,7 +16,11 @@ def login():
         if usuario:
             login_user(usuario)
             flash('Inicio de sesión exitoso!', 'success')
-            return redirect(url_for('productoRoute.getAll'))
+
+            if usuario.rol != 'admin':
+                return redirect(url_for('productoRoute.getAll'))
+            else:
+                return redirect(url_for('homrAdmin'))
         else:
             flash('Nombre de usuario o contraseña incorrectos.', 'error')
     return render_template('login/login.html')

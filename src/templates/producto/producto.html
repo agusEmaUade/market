@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}Producto{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <!-- Lado izquierdo: Formulario para agregar un nuevo producto -->
+        <div class="col-md-6">
+            <h2>Ingresar Nuevo Producto</h2>
+            <form action="{{ url_for('productoRoute.agregarProducto') }}" method="post">
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre del Producto</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                </div>
+                <div class="mb-3">
+                    <label for="descripcion" class="form-label">Descripcion del Producto</label>
+                    <input type="text" class="form-control" id="descripcion" name="descripcion" required>
+                </div>
+                <div class="mb-3">
+                    <label for="precio" class="form-label">Precio</label>
+                    <input type="number" class="form-control" id="precio" name="precio" step="0.01" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Agregar Producto</button>
+            </form>
+        </div>
+        <!-- Lado derecho: Lista de productos -->
+        <div class="col-md-6">
+            <h2>Lista de Productos</h2>
+            <ul class="list-group">
+                {% for producto in lista_productos %}
+                <li class="list-group-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>{{ producto.nombre }}</span>
+                        <div>
+                            <button class="btn btn-warning me-2" onclick="mostrarFormularioActualizar('{{ 'form-actualizar-' ~ producto.id }}')">Actualizar</button>
+                            <form action="{{ url_for('productoRoute.eliminarProducto', producto_id=producto.id) }}" method="post" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este producto?');">
+                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- Formulario de actualización (inicialmente oculto) -->
+                    <form id="{{ 'form-actualizar-' ~ producto.id }}" style="display: none;" action="{{ url_for('productoRoute.actualizarProducto', producto_id=producto.id) }}" method="post">
+                        <div class="mb-3">
+                            <label for="nombre-producto-nuevo" class="form-label">Nuevo Nombre</label>
+                            <input type="text" class="form-control" id="nombre-producto-nuevo" name="nombre-producto-nuevo" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    </form>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+    function mostrarFormularioActualizar(idFormulario) {
+        var formulario = document.getElementById(idFormulario);
+        if (formulario.style.display === "none") {
+            formulario.style.display = "block";
+        } else {
+            formulario.style.display = "none";
+        }
+    }
+</script>
+{% endblock %}

@@ -11,5 +11,15 @@ class Producto:
             'descripcion': self.descripcion
         }
     
+    def to_dictFromBd(self):
+        return {
+            'id': str(self.id),
+            'nombre': self.nombre,
+            'precio': self.precio,
+            'descripcion': self.descripcion
+        }
+    
     def from_mongo(doc):
-        return Producto(doc['nombre'], doc['precio'], doc['descripcion'])
+        producto = Producto(doc['nombre'], doc['precio'], doc['descripcion'])
+        producto.id= doc['_id']
+        return producto

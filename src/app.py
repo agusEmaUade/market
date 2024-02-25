@@ -32,6 +32,15 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/home', methods=['GET'])
+@login_required
+def homrAdmin():
+    if current_user.rol != 'admin':
+        return redirect(url_for('logout'))
+    
+    return render_template('homeAdmin.html')
+
+
 @app.route('/logout')
 @login_required
 def logout():
