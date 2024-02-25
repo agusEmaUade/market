@@ -33,9 +33,9 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <span>{{ producto.nombre }}</span>
                         <div>
-                            <button class="btn btn-warning me-2" onclick="mostrarFormularioActualizar('{{ 'form-actualizar-' ~ producto.id }}')">Actualizar</button>
+                            <button class="btn btn-warning me-2" onclick="mostrarFormularioActualizar('{{ 'form-actualizar-' ~ producto.id }}')"><i class="fas fa-edit"></i></button>
                             <form action="{{ url_for('productoRoute.eliminarProducto', producto_id=producto.id) }}" method="post" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este producto?');">
-                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                             </form>
                         </div>
                     </div>
@@ -45,7 +45,7 @@
                             <label for="nombre-producto-nuevo" class="form-label">Nuevo Nombre</label>
                             <input type="text" class="form-control" id="nombre-producto-nuevo" name="nombre-producto-nuevo" required>
                         </div>
-                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i></button>
                     </form>
                 </li>
                 {% endfor %}
