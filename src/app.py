@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import os
 
 from repositories.mongo import mongo
-from routes.producto import producto
+from routes import producto, loginRoute
 
 config = load_dotenv()
 
@@ -14,7 +14,8 @@ mongo.init_app(app)
 
 
 
-app.register_blueprint(producto, url_prefix='/producto')
+app.register_blueprint(producto.main, url_prefix='/producto')
+app.register_blueprint(loginRoute.main, url_prefix='/login')
 
 if __name__ == '__main__':
   app.run(debug=True, port=3000)

@@ -1,10 +1,10 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-from services.productoService import get_todos_service
+from services.productoService import getAllActive
 
 
-producto = Blueprint('producto', __name__)
+main = Blueprint('producto', __name__)
 
-@producto.route('/', methods=['GET'])
+@main.route('/', methods=['GET'])
 def getAll():
   # Mock de lista de productos (puedes reemplazar esto con tus datos reales)
     productos = [
@@ -13,7 +13,7 @@ def getAll():
         {"nombre": "Producto 3", "descripcion": "Descripción del Producto 3", "imagen": "pala.jpg", "precio": "$20.00"}
     ]
 
-    pp = get_todos_service()
+    pp = getAllActive()
     print(pp)
 
     return render_template('index.html', productos=pp)
