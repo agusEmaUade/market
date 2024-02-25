@@ -13,8 +13,5 @@ def getAll():
         {"nombre": "Producto 3", "descripcion": "Descripción del Producto 3", "imagen": "pala.jpg", "precio": "$20.00"}
     ]
 
-    pp = getAllActive()
-    print(pp)
-
-    return render_template('index.html', productos=pp)
+    return render_template('producto/catalogo.html', productos=getAllActive())
 

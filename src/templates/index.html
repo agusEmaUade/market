@@ -1,25 +1,17 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
-{% block title %}Tienda{% endblock %}
+{% block title %}Inicio{% endblock %}
 
 {% block content %}
-<div class="row row-cols-1 row-cols-md-3 g-4">
-    {% for producto in productos %}
-    <div class="col">
-        <div class="card h-100">
-            <img src="{{ producto.imagen }}" class="card-img-top" alt="{{ producto.nombre }}">
-            <div class="card-body">
-                <h5 class="card-title">{{ producto.nombre }}</h5>
-                <p class="card-text">{{ producto.descripcion }}</p>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted">{{ producto.precio }}</small>
-                <a href="#" class="btn btn-primary">Agregar al carrito</a>
-            </div>
+<div class="container text-center">
+    <h1>Bienvenido a Market</h1>
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <a href="{{ url_for('loginRoute.login') }}" class="btn btn-primary btn-lg"><i class="fas fa-sign-in-alt me-2"></i>Iniciar Sesión</a>
+        </div>
+        <div class="col-md-6">
+            <a href="{{ url_for('loginRoute.signup') }}" class="btn btn-success btn-lg"><i class="fas fa-user-plus me-2"></i>Crear Cuenta</a>
         </div>
     </div>
-    {% endfor %}
 </div>
 {% endblock %}
-
-
