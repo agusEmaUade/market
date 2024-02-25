@@ -5,7 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from repositories.mongo import mongo
 from models.usuario import Usuario
 
-def create(username, password, email, rol='usuario'):
+def create(username, password, email, rol='comprador'):
     usuario = Usuario(username, password, email, rol)
     result = mongo.db.usuario.insert_one(usuario.to_dict())
     usuario._id = result.inserted_id

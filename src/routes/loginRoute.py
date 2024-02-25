@@ -16,7 +16,7 @@ def login():
         if usuario and check_password_hash(usuario.password_hash, password):
             login_user(usuario)
             flash('Inicio de sesión exitoso!', 'success')
-            return redirect(url_for('index'))
+            return redirect(url_for('productoRoute.getAll'))
         else:
             flash('Nombre de usuario o contraseña incorrectos.', 'error')
     return render_template('login/login.html')

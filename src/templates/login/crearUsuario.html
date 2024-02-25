@@ -5,7 +5,7 @@
 {% block content %}
 <div class="container">
     <h1 class="mt-4">Registro</h1>
-    <form method="POST" action="crear" class="mt-4">
+    <form method="POST" action="{{ url_for('loginRoute.signup') }}" class="mt-4">
         <div class="mb-3">
             <label for="username" class="form-label">Nombre de usuario</label>
             <input type="text" class="form-control" id="username" name="username" required>
@@ -20,6 +20,6 @@
         </div>
         <button type="submit" class="btn btn-primary">Registrarse</button>
     </form>
-    <p class="mt-3">¿Ya tienes una cuenta? <a href="login">Inicia sesión aquí</a>.</p>
+    <p class="mt-3">¿Ya tienes una cuenta? <a href="{{ url_for('loginRoute.login') }}">Inicia sesión aquí</a>.</p>
 </div>
 {% endblock %}

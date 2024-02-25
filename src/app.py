@@ -4,7 +4,7 @@ import os
 from flask_login import LoginManager, login_required, logout_user, current_user
 
 from repositories.mongo import mongo
-from routes import producto, loginRoute
+from routes import loginRoute, productoRoute
 from models.usuario import Usuario
 
 config = load_dotenv()
@@ -41,7 +41,7 @@ def logout():
 
 
 #config module route
-app.register_blueprint(producto.main, url_prefix='/producto')
+app.register_blueprint(productoRoute.main, url_prefix='/producto')
 app.register_blueprint(loginRoute.main, url_prefix='/usuario')
 
 if __name__ == '__main__':
