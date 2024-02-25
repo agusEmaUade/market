@@ -28,4 +28,7 @@ class Usuario(UserMixin):
         }
 
     def from_mongo(doc):
-        return Usuario(doc['username'], doc['password_hash'], doc['email'], doc['rol'], doc['_id'])
+        usuario=Usuario(doc['username'], doc['password_hash'], doc['email'], doc['rol'])
+        usuario.id= doc['_id']
+        usuario.password_hash = doc['password_hash']
+        return usuario

@@ -36,7 +36,7 @@ def getByUsername(username):
 
 
 def authenticate(username, password):
-    usuario = Usuario.get_by_username(mongo, username)
+    usuario = getByUsername(username)
     if usuario and check_password_hash(usuario.password_hash, password):
         return usuario
     else:

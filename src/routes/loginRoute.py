@@ -12,8 +12,8 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        usuario = Usuario.get_by_username(username)
-        if usuario and check_password_hash(usuario.password_hash, password):
+        usuario = authenticate(username, password)
+        if usuario:
             login_user(usuario)
             flash('Inicio de sesión exitoso!', 'success')
             return redirect(url_for('productoRoute.getAll'))
