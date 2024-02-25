@@ -3,7 +3,7 @@ from flask_login import LoginManager, login_user, logout_user, login_required, c
 from werkzeug.security import check_password_hash
 
 from models.usuario import Usuario
-from services.usuarioService import authenticate, create, getByUsername, getById, update
+from services.usuarioService import authenticate, create, getByUsername, getById, update, getAllBuyers, delete
 
 main = Blueprint('loginRoute', __name__)
 
@@ -57,3 +57,28 @@ def updateUser():
     else:
         usuarioBd = getById(current_user.id)
         return render_template('login/modificarUsuario.html', usuario=usuarioBd)
+    
+
+@main.route('/abm/delete', methods=['POST'])
+@login_required
+def deleteUser():
+    if current_user.rol != 'admin':
+        return redirect(url_for('logout'))
+
+    usuario_id = request.form['usuario_id']
+    existing_user = getById(usuario_id)
+    if existing_user:
+        delete(usuario_id)
+        return redirect(url_for('loginRoute.viewUser'))
+    else:
+        return redirect(url_for('loginRoute.viewUser'))
+    
+
+@main.route('/abm', methods=['GET'])
+@login_required
+def viewUser():
+    if current_user.rol != 'admin':
+        return redirect(url_for('logout'))
+    
+    usuarios = getAllBuyers()
+    return render_template('login/abmUsuarios.html', lista_usuarios=usuarios)

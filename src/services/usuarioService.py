@@ -24,7 +24,7 @@ def update(user_id, new_password=None, new_email=None, new_name=None):
 
 
 def delete(user_id):
-    mongo.db.usuario.delete_one({'_id': user_id})
+    mongo.db.usuario.delete_one({'_id': ObjectId(user_id)})
 
 
 def getByUsername(username):
@@ -48,3 +48,15 @@ def getById(user_id):
         return Usuario.from_mongo(usuario_doc)
     else:
         return None
+
+def getAllBuyers():
+    usuarios_doc = mongo.db.usuario.find({'rol': 'comprador'})
+    if usuarios_doc:
+       result = []
+       for user in usuarios_doc:
+           result.append(Usuario.from_mongo(user))
+       
+       r = [user.to_dictFromBd() for user in result]
+       return r
+    else:
+       return None

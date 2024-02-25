@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mt-5">Lista de Usuarios</h1>
+    
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Correo Electrónico</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for usuario in lista_usuarios %}
+            <tr>
+                <td>{{ usuario.username }}</td>
+                <td>{{ usuario.email }}</td>
+                <td>
+                    <form action="{{ url_for('loginRoute.deleteUser') }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este usuario?');">
+                        <input type="hidden" name="usuario_id" value="{{ usuario._id }}">
+                        <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

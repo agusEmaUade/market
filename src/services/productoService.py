@@ -10,9 +10,8 @@ def getAllActive():
  result = []
  for producto in productos:
     result.append(Producto.from_mongo(producto)) 
- print(result)
+
  r = [producto.to_dict() for producto in result]
- print(r)  
  return r
 
 
