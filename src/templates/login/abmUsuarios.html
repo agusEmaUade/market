@@ -9,17 +9,27 @@
             <tr>
                 <th>Nombre</th>
                 <th>Correo Electrónico</th>
+                <th>Direccion</th>
+                <th>Telefono</th>
+                <th>Categoria</th>
+                <th>Fecha de creacion</th>
+                <th>Fecha de actualizacion</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
             {% for usuario in lista_usuarios %}
             <tr>
-                <td>{{ usuario.username }}</td>
+                <td>{{ usuario.nombre }}</td>
                 <td>{{ usuario.email }}</td>
+                <td>{{ usuario.direccion }}</td>
+                <td>{{ usuario.telefono }}</td>
+                <td>{{ usuario.categorizacion }}</td>
+                <td>{{ usuario.fecha_creacion }}</td>
+                <td>{{ usuario.fecha_actualizacion }}</td>
                 <td>
                     <form action="{{ url_for('loginRoute.deleteUser') }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este usuario?');">
-                        <input type="hidden" name="usuario_id" value="{{ usuario._id }}">
+                        <input type="hidden" name="usuario_id" value="{{ usuario.id }}">
                         <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Eliminar</button>
                     </form>
                 </td>

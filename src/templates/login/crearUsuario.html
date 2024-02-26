@@ -7,8 +7,8 @@
     <h1 class="mt-4">Registro</h1>
     <form method="POST" action="{{ url_for('loginRoute.signup') }}" class="mt-4">
         <div class="mb-3">
-            <label for="username" class="form-label">Nombre de usuario</label>
-            <input type="text" class="form-control" id="username" name="username" required>
+            <label for="nombre" class="form-label">Nombre de usuario</label>
+            <input type="text" class="form-control" id="nombre" name="nombre" required>
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Contraseña</label>
@@ -17,6 +17,14 @@
         <div class="mb-3">
             <label for="email" class="form-label">Correo electrónico</label>
             <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="mb-3">
+            <label for="telefono" class="form-label">Telefono</label>
+            <input type="text" class="form-control" id="telefono" name="telefono" required>
+        </div>
+        <div class="mb-3">
+            <label for="direccion" class="form-label">Direccion</label>
+            <input type="text" class="form-control" id="direccion" name="direccion" required>
         </div>
         <button type="submit" class="btn btn-primary">Registrarse</button>
     </form>

@@ -10,9 +10,9 @@ main = Blueprint('loginRoute', __name__)
 @main.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        username = request.form['username']
+        nombre = request.form['nombre']
         password = request.form['password']
-        usuario = authenticate(username, password)
+        usuario = authenticate(nombre, password)
         if usuario:
             login_user(usuario)
             flash('Inicio de sesión exitoso!', 'success')
@@ -29,15 +29,17 @@ def login():
 @main.route('/crear', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
-        username = request.form['username']
+        nombre = request.form['nombre']
         password = request.form['password']
+        direccion = request.form['direccion']
+        telefono = request.form['telefono']
         email = request.form['email']
-        existing_user = getByUsername(username)
+        existing_user = getByUsername(nombre)
         if existing_user:
             flash('El nombre de usuario ya está en uso.', 'error')
             return redirect(url_for('index'))
         else:
-            create(username, password, email)
+            create(nombre, password, direccion, telefono, email)
             flash('¡Cuenta creada con éxito! Por favor inicia sesión.', 'success')
             return redirect(url_for('index'))
     return render_template('login/crearUsuario.html')
@@ -47,15 +49,17 @@ def signup():
 @login_required
 def updateUser():
     if request.method == 'POST':
-        username = request.form['username']
+        nombre = request.form['nombre']
         password = request.form['password']
+        direccion = request.form['direccion']
+        telefono = request.form['telefono']
         email = request.form['email']
-        existing_user = getByUsername(username)
+        existing_user = getByUsername(nombre)
         if existing_user:
             flash('El nombre de usuario ya está en uso.', 'error')
             return redirect(url_for('loginRoute.updateUser'))
         else:
-            update(current_user.id, password, email, username)
+            update(current_user.id, nombre, password, direccion,telefono, email)
             flash('¡Cuenta actualizada con éxito!', 'success')
             return redirect(url_for('loginRoute.updateUser'))
     else:
