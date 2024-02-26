@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}Pedidos{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Lista de Pedidos</h1>
+    <table class="table mt-3">
+        <thead>
+            <tr>
+                <th scope="col">Estado</th>
+                <th scope="col">Cantidad de Artículos</th>
+                <th scope="col">Monto Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pedido in lista_pedidos %}
+            <tr data-toggle="collapse" data-target="#detallePedido{{ pedido.id }}" aria-expanded="false" aria-controls="detallePedido{{ pedido.id }}">
+                <td>{{ pedido.estado }}</td>
+                <td>{{ pedido.cantidadItem }}</td>
+                <td>{{ pedido.montoTotal }}</td>
+            </tr>
+            <tr>
+                <td colspan="4" class="p-0">
+                    <div class="collapse" id="detallePedido{{ loop.index }}">
+                        <div class="card card-body">
+                            <h5>Detalle del Pedido</h5>
+                            <ul class="list-group">
+                                {% for producto in pedido.productos %}
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h6>{{ producto.nombre }}</h6>
+                                            <p>{{ producto.descripcion }}</p>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <p>Cantidad: {{ producto.cantidad }}</p>
+                                            <p>Precio: {{ producto.precio }}</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

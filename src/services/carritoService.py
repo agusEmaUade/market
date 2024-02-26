@@ -83,3 +83,6 @@ def eliminarInformacionProducto(nombre_usuario, producto):
         # Guardar la información actualizada en Redis
         conexion_redis.get_redis_instance().set(nombre_usuario, info_usuario_json, 180)
 
+
+def eliminarAllByValor(clave):
+    conexion_redis.get_redis_instance().delete(clave)
