@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 import json
 
-from services.productoService import getById, getByName
+from services.productoService import getById, getByName, update
 from services.carritoService import obtenerValor, eliminarAllByValor
 from services.pedidoService import create, getAll, getAllByBuyer
 main = Blueprint('pedidoRoute', __name__)
@@ -19,9 +19,23 @@ def generar():
         if existe_carrito:
             pro = existe_carrito['productos']
             user = existe_carrito['usuario']
-            create(user, pro, 0, userName, 0)
+            montoTotal = existe_carrito['montoTotal']
+            
+            for producto in pro:
+                nombre_producto = producto['nombre']
+                producto_bd = getByName(nombre_producto)
+                cantidad = int(producto_bd['cantidad'])
+                if cantidad < 1:
+                    eliminarAllByValor(userName)
+                    return redirect(url_for('productoRoute.getAll'))
+
+                resta = cantidad - 1
+                update(producto_bd['id'],'sistema',None,None,None,str(resta))
+
+            create(user, pro, float(montoTotal), userName, len(pro))
             eliminarAllByValor(userName)
-            return render_template('pedido/pedido.html', lista_pedidos=getAllByBuyer(userName))
+            pedidos = getAllByBuyer(userName)
+            return render_template('pedido/pedido.html', lista_pedidos=pedidos)
         else:
          return redirect(url_for('productoRoute.getAll'))
         
@@ -32,5 +46,6 @@ def view():
         return render_template('pedido/pedido.html', lista_pedidos=getAll())
     else:
         userName = current_user.nombre
-        return render_template('pedido/pedido.html', lista_pedidos=getAllByBuyer(userName))
+        pedidos = getAllByBuyer(userName)
+        return render_template('pedido/pedido.html', lista_pedidos=pedidos)
         
