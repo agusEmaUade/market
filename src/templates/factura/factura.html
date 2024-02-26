@@ -10,6 +10,9 @@
             <thead>
                 <tr>
                     <th scope="col">Número de Factura</th>
+                    {% if current_user.is_authenticated and current_user.rol == 'admin' %}
+                    <th scope="col">Usuario</th>
+                    {% endif %}
                     <th scope="col">Monto</th>
                     <th scope="col">Cantidad</th>
                     <th scope="col">Fecha</th>
@@ -22,6 +25,9 @@
                 {% for factura in lista_facturas %}
                 <tr>
                     <td>{{ factura.id }}</td>
+                    {% if current_user.is_authenticated and current_user.rol == 'admin' %}
+                    <td>{{ factura.usuario_actualizacion }}</td>
+                    {% endif %}
                     <td>{{ factura.pedido.montoTotal}}</td>
                     <td>{{ factura.pedido.cantidadItem }}</td>
                     <td>{{ factura.fecha_creacion }}</td>
