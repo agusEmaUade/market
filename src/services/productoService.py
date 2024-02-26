@@ -46,7 +46,7 @@ def update(product_id, new_name=None, new_descripcion=None, new_precio=None):
     if new_precio:
         update_data['precio'] = new_precio
     
-    mongo.db.producto.update_one({'_id': product_id}, {'$set': update_data})
+    mongo.db.producto.update_one({'_id': ObjectId(product_id)}, {'$set': update_data})
 
 
 def delete(product_id):

@@ -64,8 +64,7 @@ def actualizarProducto(producto_id):
         nuevo_nombre = request.form['nombre-producto-nuevo']
         existing_product = getById(producto_id)
         if existing_product:
-            existing_product.nombre = nuevo_nombre
-            update(nuevo_nombre,None, None)
+            update(producto_id, nuevo_nombre, None, None)
             flash('Producto actualizado correctamente', 'success')
             return redirect(url_for('productoRoute.getView'))
         else:
