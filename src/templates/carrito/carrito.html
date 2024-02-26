@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Productos en el carrito</h1>
+    <ul class="list-group mt-3">
+        {% for producto in lista_productos %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <h5>{{ producto.nombre }}</h5>
+                <p>{{ producto.descripcion }}</p>
+            </div>
+            <span class="badge bg-primary rounded-pill">{{ producto.precio }}</span>
+            <form action="{{ url_for('carritoRoute.delete') }}" method="post" style="display: inline;">
+                <input type="hidden" name="producto_name" value="{{ producto.nombre }}">
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+    <form action="{{ url_for('carritoRoute.delete') }}" method="post" id="confirmarCompraForm">
+        <button type="submit" class="btn btn-primary mt-3" id="confirmarCompra">Confirmar Compra</button>
+    </form>
+</div>
+<script>
+    document.getElementById('confirmarCompraForm').addEventListener('submit', function() {
+        // Aquí puedes agregar la lógica para confirmar la compra
+        // Puedes dejarlo así si deseas confirmar la compra solo al presionar el botón,
+        // o puedes agregar una confirmación adicional utilizando un modal o una ventana emergente
+        // Antes de enviar el formulario de confirmación, puedes realizar cualquier validación adicional necesaria
+        // Por ejemplo, verificar si la lista de productos está vacía o si se cumplen ciertas condiciones
+        return confirm('¿Estás seguro de que deseas confirmar la compra?');
+    });
+</script>
+{% endblock %}

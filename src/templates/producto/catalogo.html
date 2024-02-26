@@ -21,7 +21,10 @@
                 </div>
                 <div>
                     <span class="badge bg-primary">${{ producto.precio }}</span>
-                    <a href="#" class="btn btn-primary">Agregar al carrito</a>
+                    <form action="{{ url_for('carritoRoute.add') }}" method="post">
+                        <input type="hidden" name="producto_id" value="{{ producto.id }}">
+                        <button type="submit" class="btn btn-primary">Agregar al carrito</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -29,6 +32,7 @@
     {% endfor %}
 </div>
 {% endblock %}
+
 
 
 
