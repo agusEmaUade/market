@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
-from flask_login import LoginManager, login_required, logout_user, current_user
-from services.productoService import getAllActive, getById, getByName, delete, update, create
+from flask_login import login_required, current_user
+from services.productoService import getAllActive, getById, getByName, delete, update, create, getAllProduct
 
 
 main = Blueprint('productoRoute', __name__)
@@ -17,7 +17,7 @@ def getView():
     if current_user.rol != 'admin':
         return redirect(url_for('logout'))
     
-    return render_template('producto/producto.html', lista_productos=getAllActive())
+    return render_template('producto/producto.html', lista_productos=getAllProduct())
 
 
 @main.route('/abm/agregar', methods=['POST'])
@@ -30,13 +30,14 @@ def agregarProducto():
         nombre = request.form['nombre']
         descripcion = request.form['descripcion']
         precio = request.form['precio']
+        cantidad = request.form['cantidad']
 
         existing_product = getByName(nombre)
         if existing_product:
           flash('El nombre de producto ya está en uso.', 'error')
           return redirect(url_for('productoRoute.getView'))
         else:
-          create(nombre, descripcion, precio)
+          create(nombre, descripcion, precio, cantidad, current_user.nombre, current_user.nombre)
           flash('¡Producto creada con éxito!.', 'success')
           return redirect(url_for('productoRoute.getView'))
     
@@ -62,9 +63,13 @@ def eliminarProducto(producto_id):
 def actualizarProducto(producto_id):
     if request.method == 'POST':
         nuevo_nombre = request.form['nombre-producto-nuevo']
+        nuevo_descripcion = request.form['descripcion-producto-nuevo']
+        nuevo_precio = request.form['precio-producto-nuevo']
+        nuevo_cantidad = request.form['cantidad-producto-nuevo']
+
         existing_product = getById(producto_id)
         if existing_product:
-            update(producto_id, nuevo_nombre, None, None)
+            update(producto_id, current_user.nombre, nuevo_nombre, nuevo_descripcion,nuevo_precio, nuevo_cantidad)
             flash('Producto actualizado correctamente', 'success')
             return redirect(url_for('productoRoute.getView'))
         else:

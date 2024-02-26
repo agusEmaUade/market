@@ -21,6 +21,10 @@
                     <label for="precio" class="form-label">Precio</label>
                     <input type="number" class="form-control" id="precio" name="precio" step="0.01" required>
                 </div>
+                <div class="mb-3">
+                    <label for="cantidad" class="form-label">Cantidad</label>
+                    <input type="number" class="form-control" id="cantidad" name="cantidad" required>
+                </div>
                 <button type="submit" class="btn btn-primary">Agregar Producto</button>
             </form>
         </div>
@@ -39,11 +43,32 @@
                             </form>
                         </div>
                     </div>
+                    <div>
+                        <p><strong>Descripción:</strong> {{ producto.descripcion }}</p>
+                        <p><strong>Precio:</strong> {{ producto.precio }}</p>
+                        <p><strong>Cantidad:</strong> {{ producto.cantidad }}</p>
+                        <p><strong>Fecha de Creación:</strong> {{ producto.fecha_creacion }}</p>
+                        <p><strong>Usuario que lo creó:</strong> {{ producto.usuario_creacion }}</p>
+                        <p><strong>Fecha de Actualización:</strong> {{ producto.fecha_actualizacion }}</p>
+                        <p><strong>Usuario que lo actualizó:</strong> {{ producto.usuario_actualizacion }}</p>
+                    </div>
                     <!-- Formulario de actualización (inicialmente oculto) -->
                     <form id="{{ 'form-actualizar-' ~ producto.id }}" style="display: none;" action="{{ url_for('productoRoute.actualizarProducto', producto_id=producto.id) }}" method="post">
                         <div class="mb-3">
                             <label for="nombre-producto-nuevo" class="form-label">Nuevo Nombre</label>
                             <input type="text" class="form-control" id="nombre-producto-nuevo" name="nombre-producto-nuevo" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="descripcion-producto-nuevo" class="form-label">Nueva Descripción</label>
+                            <input type="text" class="form-control" id="descripcion-producto-nuevo" name="descripcion-producto-nuevo" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="precio-producto-nuevo" class="form-label">Nuevo Precio</label>
+                            <input type="number" class="form-control" id="precio-producto-nuevo" name="precio-producto-nuevo" step="0.01" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cantidad-producto-nuevo" class="form-label">Nueva Cantidad</label>
+                            <input type="number" class="form-control" id="cantidad-producto-nuevo" name="cantidad-producto-nuevo" required>
                         </div>
                         <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i></button>
                     </form>
