@@ -4,7 +4,7 @@ from datetime import datetime
 from repositories.mongo import mongo
 from models.pedido import Pedido
 
-def getById(pedido_id):
+def getPedidoById(pedido_id):
     pedido_doc = mongo.db.pedido.find_one({'_id': ObjectId(pedido_id)})
     if pedido_doc:
         return Pedido.from_mongo(pedido_doc)

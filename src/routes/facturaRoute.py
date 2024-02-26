@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 import json
 
-from services.pedidoService import getById, updatePedido
+from services.pedidoService import getPedidoById, updatePedido
 from services.facturaService import crearFactura, getAllByName, getFacturaAll
 main = Blueprint('facturaRoute', __name__)
 
@@ -17,7 +17,7 @@ def addFactura():
         pedido_id = request.form['pedido_id']
         metodo_pago = request.form['metodo_pago']
 
-        existe_pedido = getById(pedido_id)
+        existe_pedido = getPedidoById(pedido_id)
         if existe_pedido:
             crearFactura(existe_pedido, metodo_pago, userName)
             updatePedido(pedido_id, userName, 'facturado')

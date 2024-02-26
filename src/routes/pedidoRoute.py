@@ -4,7 +4,7 @@ import json
 
 from services.productoService import getById, getByName, update
 from services.carritoService import obtenerValor, eliminarAllByValor
-from services.pedidoService import create, getAll, getAllByBuyer
+from services.pedidoService import create, getAll, getAllByBuyer, updatePedido, getPedidoById
 main = Blueprint('pedidoRoute', __name__)
 
 @main.route('/agregar', methods=['POST'])
@@ -48,4 +48,20 @@ def view():
         userName = current_user.nombre
         pedidos = getAllByBuyer(userName)
         return render_template('pedido/pedido.html', lista_pedidos=pedidos)
+    
+@main.route('/update', methods=['POST'])
+@login_required
+def updateEstado():
+    if current_user.rol != 'admin':
+        return redirect(url_for('productoRoute.getAll'))
+
+    userName = current_user.nombre
+    pedido_id = request.form['pedido_id']
+    existe_pedido = getPedidoById(pedido_id)
+
+    if existe_pedido:
+        updatePedido(pedido_id, userName,'entregado')
+            
+    return render_template('pedido/pedido.html', lista_pedidos=getAll())
+    
         
