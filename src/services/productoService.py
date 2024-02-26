@@ -42,7 +42,7 @@ def getById(product_id):
 def create(nombre, descripcion, precio, cantidad, usuario_creacion, usuario_actualizacion):
     producto = Producto(nombre, descripcion, precio, cantidad, usuario_creacion, usuario_actualizacion)
     result = mongo.db.producto.insert_one(producto.to_dict())
-    producto._id = result.inserted_id
+    producto.id = result.inserted_id
     return producto
 
 

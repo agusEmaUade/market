@@ -5,7 +5,7 @@ class Factura:
         self.pedido = pedido
         self.forma_pago = forma_pago
         self.estado = estado
-        self.usuario_actualizacion: usuario_actualizacion
+        self.usuario_actualizacion = usuario_actualizacion
         self.fecha_creacion = fecha_creacion
         self.fecha_actualizacion = fecha_actualizacion
        
@@ -13,7 +13,7 @@ class Factura:
 
     def to_dict(self):
         return {
-            'pedido': self.pedido,
+            'pedido': self.pedido.to_dict(),
             'forma_pago': self.forma_pago,
             'estado': self.estado,
             'usuario_actualizacion': self.usuario_actualizacion,
@@ -34,6 +34,6 @@ class Factura:
         }
     
     def from_mongo(doc):
-        factura = Factura(doc['pedido'], doc['forma_pago'], doc['usuario_actualizacion'], doc['estado'], doc['usuario_actualizacion'], doc['fecha_creacion'], doc['fecha_actualizacion'])
+        factura = Factura(doc['pedido'], doc['forma_pago'], doc['usuario_actualizacion'], doc['estado'], doc['fecha_creacion'], doc['fecha_actualizacion'])
         factura.id= doc['_id']
         return factura

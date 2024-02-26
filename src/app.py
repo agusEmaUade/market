@@ -4,7 +4,7 @@ import os
 from flask_login import LoginManager, login_required, logout_user, current_user
 
 from repositories.mongo import mongo
-from routes import loginRoute, productoRoute, carritoRoute, pedidoRoute
+from routes import loginRoute, productoRoute, carritoRoute, pedidoRoute, facturaRoute
 from services.usuarioService import getById
 
 config = load_dotenv()
@@ -55,6 +55,7 @@ app.register_blueprint(productoRoute.main, url_prefix='/producto')
 app.register_blueprint(loginRoute.main, url_prefix='/usuario')
 app.register_blueprint(carritoRoute.main, url_prefix='/carrito')
 app.register_blueprint(pedidoRoute.main, url_prefix='/pedido')
+app.register_blueprint(facturaRoute.main, url_prefix='/factura')
 
 if __name__ == '__main__':
   app.run(debug=True, port=3000)

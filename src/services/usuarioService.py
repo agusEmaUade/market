@@ -8,7 +8,7 @@ from models.usuario import Usuario
 def create(nombre, password, direccion, telefono, email, rol='comprador'):
     usuario = Usuario(nombre, password, direccion, telefono, email, rol)
     result = mongo.db.usuario.insert_one(usuario.to_dict())
-    usuario._id = result.inserted_id
+    usuario.id = result.inserted_id
     return usuario
 
 def update(user_id, new_nombre=None, new_password=None, new_direccion=None, new_telefono=None, new_email=None):

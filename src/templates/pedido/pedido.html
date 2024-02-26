@@ -13,6 +13,19 @@
                     <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ pedido.id }}" aria-expanded="true" aria-controls="collapse{{ pedido.id }}">
                         Pedido {{loop.index}} - {{ pedido.estado }}
                     </button>
+                    {% if current_user.is_authenticated and current_user.rol == 'comprador' and pedido.estado == 'en-preparacion' %}
+                    <form action="{{ url_for('facturaRoute.addFactura') }}" method="post" class="d-inline">
+                        <input type="hidden" name="pedido_id" value="{{ pedido.id }}">
+                        <input type="hidden" name="metodo_pago" value="dinero">
+                        <button type="submit" class="btn btn-primary btn-sm">Pagar con Dinero</button>
+                    </form>
+                    <form action="{{ url_for('facturaRoute.addFactura') }}" method="post" class="d-inline">
+                        <input type="hidden" name="pedido_id" value="{{ pedido.id }}">
+                        <input type="hidden" name="metodo_pago" value="tarjeta">
+                        <button type="submit" class="btn btn-primary btn-sm">Pagar con Tarjeta</button>
+                    </form>
+                    {% endif %}
+                   
                 </h2>
             </div>
 

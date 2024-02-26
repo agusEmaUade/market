@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Facturas{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Lista de Facturas</h1>
+    <div class="table-responsive mt-3">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Número de Factura</th>
+                    <th scope="col">Monto</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Método de Pago</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Descargar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for factura in lista_facturas %}
+                <tr>
+                    <td>{{ factura.id }}</td>
+                    <td>{{ factura.pedido.montoTotal}}</td>
+                    <td>{{ factura.pedido.cantidadItem }}</td>
+                    <td>{{ factura.fecha_creacion }}</td>
+                    <td>{{ factura.forma_pago }}</td>
+                    <td>{{ factura.estado }}</td>
+                    <td>
+                        <button class="btn btn-primary" disabled>
+                            <i class="fas fa-download me-1"></i> Descargar
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
